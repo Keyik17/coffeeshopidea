@@ -147,8 +147,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .stack-back::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(20,13,8,.62),rgba(20,13,8,.5) 45%,rgba(20,13,8,.8))}
 .sb-content{position:relative;z-index:2;height:100%;padding:36px;display:flex;flex-direction:column;justify-content:space-between;color:var(--oat)}
 .stack-front{z-index:2;background:#cbb9a4 center/cover no-repeat;padding:22px 0 0 22px;display:flex}
-.prob-stack:hover .stack-front,.prob-stack.open .stack-front,.prob-stack:focus-visible .stack-front{transform:translate(14px,18px) scale(.9);opacity:0;z-index:1}
-.prob-stack:hover .stack-back,.prob-stack.open .stack-back,.prob-stack:focus-visible .stack-back{transform:translate(0,0) scale(1);z-index:2}
 @media (prefers-reduced-motion:reduce){.stack-front,.stack-back{transition:opacity .3s ease}}
 .pen-inner{position:relative;flex:1;background:#241811 center/cover no-repeat;overflow:hidden;display:flex;flex-direction:column;padding:32px}
 .pen-inner::after{content:"";position:absolute;inset:0;background:linear-gradient(158deg,rgba(20,13,8,.44),rgba(20,13,8,.12) 42%,rgba(20,13,8,.5));z-index:1}
@@ -377,13 +375,19 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
 
 /* problem card: smooth reveal + tilt */
 .prob-stack{perspective:1200px;-webkit-tap-highlight-color:transparent}
-.prob-stack .stack-inner{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .6s var(--ease-out)}
+.prob-stack .stack-inner{position:absolute;inset:0;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .6s var(--ease-out)}
 .prob-stack.tilting .stack-inner{transition:transform .12s linear}
-.stack-front,.stack-back{transition:transform .8s var(--ease-out),opacity .6s var(--ease),filter .8s var(--ease-out);will-change:transform,opacity}
+.stack-front,.stack-back{transition:filter .8s var(--ease-out);will-change:transform}
+/* card shuffle: the back card swings out and lands on top, the front tucks behind */
+@keyframes toFront{0%{transform:translate(16px,16px) scale(.95);z-index:1}45%{transform:translate(64px,4px) rotate(4deg) scale(.97);z-index:1}46%{z-index:3}100%{transform:none;z-index:3}}
+@keyframes toBack{0%{transform:none;z-index:2}45%{transform:translate(-48px,-6px) rotate(-4deg) scale(.97);z-index:2}46%{z-index:1}100%{transform:translate(16px,16px) scale(.95);z-index:1}}
+.prob-stack.swapped .stack-back,.prob-stack.unswap .stack-front{animation:toFront .9s var(--ease-out) forwards}
+.prob-stack.swapped .stack-front,.prob-stack.unswap .stack-back{animation:toBack .9s var(--ease-out) forwards}
+.prob-stack.swapped .stack-back{filter:none}
+.prob-stack.swapped .stack-front{filter:brightness(.8)}
+@media (prefers-reduced-motion:reduce){.prob-stack .stack-back,.prob-stack .stack-front{animation-duration:.01s!important}}
 .stack-back{z-index:1;transform:translate(16px,16px) scale(.95);filter:brightness(.8)}
 .stack-front{z-index:2}
-.prob-stack:hover .stack-front,.prob-stack.open .stack-front,.prob-stack:focus-visible .stack-front{transform:translate(-18px,-22px) rotate(-4deg) scale(.96);opacity:0;z-index:2;pointer-events:none}
-.prob-stack:hover .stack-back,.prob-stack.open .stack-back,.prob-stack:focus-visible .stack-back{transform:none;filter:none;z-index:1}
 .stack-glare{position:absolute;inset:0;border-radius:var(--r);pointer-events:none;z-index:3;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.16),transparent 55%);opacity:0;transition:opacity .4s var(--ease)}
 .prob-stack.tilting .stack-glare{opacity:1}
 .pen-back-label{color:rgba(250,246,239,.62)}
@@ -391,7 +395,8 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
 .pen-back-stats span{color:rgba(250,246,239,.72)}
 .sb-content>div:first-child,.pen-back-stats>div{transform:translateY(10px);opacity:0;transition:transform .7s var(--ease-out) .15s,opacity .6s var(--ease) .15s}
 .pen-back-stats>div:nth-child(2){transition-delay:.25s}
-.prob-stack:hover .sb-content>div:first-child,.prob-stack.open .sb-content>div:first-child,.prob-stack:hover .pen-back-stats>div,.prob-stack.open .pen-back-stats>div{transform:none;opacity:1}
+.prob-stack.swapped .sb-content>div:first-child,.prob-stack.swapped .pen-back-stats>div{transform:none;opacity:1;transition-delay:.45s}
+.prob-stack.swapped .pen-back-stats>div:nth-child(2){transition-delay:.55s}
 
 /* band carousel */
 .band-bg{transform:scale(1.04);transition:transform 8s linear}
@@ -869,9 +874,12 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
     var count=function(){ if(counted||calm) return; counted=true;
       f.querySelectorAll('[data-to]').forEach(function(b){ var to=+b.dataset.to, pre=b.dataset.pre||'', t0=performance.now();
         (function tick(now){ var k=Math.min(1,(now-t0)/1200), e=1-Math.pow(1-k,4); b.textContent=pre+Math.round(to*e).toLocaleString('en-US'); if(k<1) requestAnimationFrame(tick); })(t0); }); };
-    f.addEventListener('mouseenter',count); f.addEventListener('focus',count);
-    f.addEventListener('click',function(){ f.classList.toggle('open'); count(); });
-    f.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); f.classList.toggle('open'); count(); } });
+    var set=function(on){ if(on===f.classList.contains('swapped')) return; f.classList.toggle('swapped',on); f.classList.toggle('unswap',!on); if(on) count(); };
+    var fine=matchMedia('(hover: hover)').matches;
+    if(fine){ f.addEventListener('mouseenter',function(){ set(true); }); f.addEventListener('mouseleave',function(){ set(false); }); }
+    f.addEventListener('focus',function(){ set(true); }); f.addEventListener('blur',function(){ set(false); });
+    f.addEventListener('click',function(){ if(!fine) set(!f.classList.contains('swapped')); });
+    f.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); set(!f.classList.contains('swapped')); } });
     if(calm) return;
     f.addEventListener('pointermove',function(e){ if(e.pointerType!=='mouse') return; var r=f.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
       f.classList.add('tilting'); inner.style.setProperty('--ry',((x-.5)*10).toFixed(2)+'deg'); inner.style.setProperty('--rx',((.5-y)*8).toFixed(2)+'deg');
