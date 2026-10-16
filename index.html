@@ -92,6 +92,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:linear-gradient(150deg,#3a271a 0%,var(--espresso) 55%,var(--espresso-2) 100%)}
 .hero-bg{position:absolute;inset:0;z-index:0;background:var(--espresso) center/cover no-repeat}
 .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,14,8,.55) 0%,rgba(22,14,8,.22) 30%,rgba(22,14,8,.5) 62%,rgba(22,14,8,.9) 100%)}
+@media (max-width:700px){.hero-bg::after{background:linear-gradient(180deg,rgba(22,14,8,.6) 0%,rgba(22,14,8,.45) 35%,rgba(22,14,8,.82) 60%,rgba(22,14,8,.95) 100%)}.hero h1,.hero-foot p{text-shadow:0 1px 18px rgba(22,14,8,.45)}.hero-foot p,.hero-mini span{color:rgba(250,246,239,.92)}}
 .hero-rings{position:absolute;top:-8%;right:-6%;width:560px;height:560px;z-index:1;opacity:.5}
 .hero-rings span{position:absolute;inset:0;margin:auto;border-radius:50%;border:1.5px solid rgba(194,106,74,.3)}
 .hero-rings span:nth-child(1){width:220px;height:220px;animation:pulse 5s ease-out infinite}
@@ -173,14 +174,14 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 @media (max-width:480px){.stp{border-right:0}}
 .stp .n{font-family:"Satoshi",sans-serif;font-weight:900;font-size:2.4rem;color:var(--line);line-height:1}
 .stp.last .n{color:var(--clay)}
-.stp .ico{margin:20px 0 16px}
+.stp .ico{margin:0 0 16px}
 .stp h3{font-size:1.16rem;font-weight:700;margin-bottom:7px}
 .stp p{font-size:14px;color:var(--warm)}
 
 /* ── BENEFITS band with overlay ── */
 .band{position:relative}
-.band>.ph{aspect-ratio:16/6.2;min-height:360px}
-@media (max-width:700px){.band>.ph{aspect-ratio:auto;min-height:520px}}
+.band .ph{aspect-ratio:16/6.2;min-height:360px}
+@media (max-width:700px){.band .ph{aspect-ratio:auto;min-height:520px}.band-card .ph.thumb{aspect-ratio:16/9;min-height:0}}
 .band-card{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(420px,86%);background:var(--oat);border-radius:var(--r);padding:26px;z-index:3}
 .band-card .thumb{aspect-ratio:16/9;border-radius:6px;margin-bottom:16px}
 .band-card h3{font-size:1.3rem;font-weight:700;margin-bottom:8px}
@@ -220,7 +221,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .send-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;margin-top:44px;align-items:center}
 @media (max-width:860px){.send-grid{grid-template-columns:1fr;gap:32px}}
 .send-grid .ph{aspect-ratio:4/3.3}
-.send-intro{font-size:15px;color:var(--warm);margin-bottom:8px}
 .send-list{border-top:1px solid var(--rule)}
 .arow{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 2px;border-bottom:1px solid var(--rule);transition:padding-left .2s ease}
 .arow:hover{padding-left:10px}
@@ -280,14 +280,23 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .guar .btn{background:var(--espresso);color:var(--oat);white-space:nowrap}
 
 /* ── WHO ── */
-.who-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:40px;border-top:1px solid var(--rule)}
-@media (max-width:760px){.who-grid{grid-template-columns:1fr 1fr}}
-.who{padding:26px 22px 30px;border-right:1px solid var(--rule)}
-.who:last-child{border-right:0}
-@media (max-width:760px){.who:nth-child(2n){border-right:0}.who{border-bottom:1px solid var(--rule)}}
-.who .ico{width:44px;height:44px;border-radius:var(--r);background:var(--latte);display:grid;place-items:center;margin-bottom:16px}
-.who h3{font-size:1.15rem;font-weight:700;margin-bottom:6px}
-.who p{font-size:13.5px;color:var(--warm)}
+.who-wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:64px;align-items:start}
+@media (max-width:900px){.who-wrap{grid-template-columns:1fr;gap:36px}}
+.eyebrow{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--clay);margin-bottom:16px}
+.who-head{position:sticky;top:96px}
+@media (max-width:900px){.who-head{position:static}}
+.who-head h2{font-size:clamp(1.9rem,3.2vw,2.6rem);font-weight:700;line-height:1.08;letter-spacing:-.02em;max-width:16ch}
+.who-head p{color:var(--warm);margin-top:18px;max-width:38ch}
+.who-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.who-row{display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:24px;padding:26px 4px;border-bottom:1px solid var(--rule);cursor:default;transition:padding .45s cubic-bezier(.22,1,.36,1)}
+.who-name{font-family:"Satoshi",sans-serif;font-weight:700;font-size:clamp(1.6rem,3.4vw,2.6rem);letter-spacing:-.025em;line-height:1.05;color:var(--espresso);transition:color .3s}
+.who-desc{grid-column:1;font-size:15px;color:var(--warm);max-height:0;opacity:0;overflow:hidden;transform:translateY(-4px);transition:max-height .45s cubic-bezier(.22,1,.36,1),opacity .3s,transform .45s cubic-bezier(.22,1,.36,1),margin .45s}
+.who-arrow{grid-column:2;grid-row:1;font-size:1.4rem;color:var(--clay);opacity:0;transform:translateX(-10px);transition:opacity .3s,transform .45s cubic-bezier(.22,1,.36,1)}
+.who-row:hover{padding-left:14px}
+.who-row:hover .who-name{color:var(--clay-ink)}
+.who-row:hover .who-desc{max-height:3em;opacity:1;transform:none;margin-top:8px}
+.who-row:hover .who-arrow{opacity:1;transform:none}
+@media (hover:none){.who-desc{max-height:none;opacity:1;transform:none;margin-top:8px}.who-arrow{display:none}}
 
 /* ── FAQ ── */
 .faq-list{margin-top:40px;border-top:1px solid var(--rule)}
@@ -299,15 +308,24 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .faq-list .ans{padding:0 44px 26px 0;color:var(--warm);font-size:15px;max-width:80ch}
 
 /* ── GET STARTED band ── */
-.getstarted{position:relative;overflow:hidden}
-.getstarted .ph{min-height:520px;aspect-ratio:auto}
-.getstarted .ph.dark::after{background:linear-gradient(120deg,rgba(22,14,8,.74),rgba(22,14,8,.58) 45%,rgba(22,14,8,.86))}
-.gs-inner{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;justify-content:space-between;padding:56px 0}
-.gs-inner .wrap{width:100%}
-.gs-title{color:var(--oat);font-size:clamp(3rem,10vw,8rem)}
-.gs-card{max-width:420px;margin-left:auto;background:transparent}
-.gs-card h3{color:var(--oat);font-size:1.5rem;font-weight:700;margin-bottom:10px}
-.gs-card p{color:rgba(250,246,239,.82);font-size:14.5px;margin-bottom:20px}
+.cta{padding:24px 0 96px}
+.cta-card{display:grid;grid-template-columns:1.05fr .95fr;background:var(--espresso);color:var(--oat);border-radius:20px;overflow:hidden;min-height:480px}
+@media (max-width:860px){.cta-card{grid-template-columns:1fr}}
+.cta-copy{padding:clamp(32px,5vw,64px);display:flex;flex-direction:column;justify-content:center}
+.cta-copy h2{font-family:"Satoshi",sans-serif;font-weight:700;font-size:clamp(2rem,3.6vw,3rem);line-height:1.04;letter-spacing:-.025em;max-width:15ch}
+.cta-copy h2 em{font-family:"Newsreader",Georgia,serif;font-style:italic;font-weight:400;color:#E9B79C;letter-spacing:-.01em}
+.cta-copy p{color:rgba(250,246,239,.72);font-size:15.5px;margin-top:20px;max-width:42ch}
+.cta-actions{display:flex;flex-wrap:wrap;align-items:center;gap:22px;margin-top:30px}
+.cta .btn-primary{background:var(--oat);color:var(--espresso);border-color:var(--oat)}
+.cta .btn-primary:hover{background:#fff;color:var(--espresso)}
+.cta-link{color:var(--oat);font-weight:600;font-size:15px;border-bottom:1px solid rgba(250,246,239,.35);padding-bottom:2px;transition:border-color .2s}
+.cta-link:hover{border-color:var(--oat)}
+.cta-points{list-style:none;margin:34px 0 0;padding:22px 0 0;border-top:1px solid var(--rule-dk);display:flex;flex-wrap:wrap;gap:10px 26px;font-size:13.5px;color:rgba(250,246,239,.7)}
+.cta-points li{display:flex;align-items:center;gap:8px}
+.cta-points li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--clay)}
+.cta-media{background:#2a1f18 center/cover no-repeat;min-height:320px;transform:scale(1.04);transition:transform 1.4s cubic-bezier(.22,1,.36,1)}
+.cta-card.in .cta-media{transform:scale(1)}
+.cta-card:hover .cta-media{transform:scale(1.03)}
 
 /* ── FOOTER ── */
 .foot{background:var(--oat);padding-top:60px}
@@ -323,6 +341,22 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .foot-cols a.btn{color:var(--oat);margin-top:10px}
 .foot-cols a.btn:hover{color:var(--oat)}
 .foot-nav a{display:block}
+
+/* dashboard motion */
+[data-dash] .tile,[data-dash] .chart{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1),border-color .3s,background .3s}
+[data-dash].play .tile,[data-dash].play .chart{opacity:1;transform:none}
+[data-dash].play .tile:nth-child(2){transition-delay:.08s}[data-dash].play .tile:nth-child(3){transition-delay:.16s}
+[data-dash].play .chart:nth-child(1){transition-delay:.24s}[data-dash].play .chart:nth-child(2){transition-delay:.32s}
+[data-dash] .tile:hover,[data-dash] .chart:hover{border-color:rgba(250,246,239,.32);background:rgba(250,246,239,.06)}
+[data-dash] .line{stroke-dasharray:1;stroke-dashoffset:1}
+[data-dash].play .line{stroke-dashoffset:0;transition:stroke-dashoffset 1.8s cubic-bezier(.65,0,.35,1) .45s}
+[data-dash] .area{opacity:0;transform:translateY(10px);transform-box:fill-box}
+[data-dash].play .area{opacity:1;transform:none;transition:opacity 1.2s ease 1s,transform 1.2s cubic-bezier(.22,1,.36,1) 1s}
+[data-dash] .arc{stroke-dasharray:0 214}
+[data-dash].play .arc{stroke-dasharray:143 214;transition:stroke-dasharray 1.6s cubic-bezier(.65,0,.35,1) .6s}
+.panel-bar .live::before{animation:pulse 2s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(79,191,126,.55)}70%{box-shadow:0 0 0 8px rgba(79,191,126,0)}100%{box-shadow:0 0 0 0 rgba(79,191,126,0)}}
+@media (prefers-reduced-motion:reduce){[data-dash] .tile,[data-dash] .chart,[data-dash] .area{opacity:1;transform:none;transition:none}[data-dash] .line{stroke-dashoffset:0;transition:none}[data-dash] .arc{stroke-dasharray:143 214;transition:none}.panel-bar .live::before{animation:none}.cta-media{transform:none}}
 
 /* reveal */
 .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
@@ -459,25 +493,21 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
     </div>
     <div class="steps reveal">
       <div class="stp">
-        <div class="n">01</div>
         <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 9c5-4.5 13-4.5 18 0" stroke="#C26A4A" stroke-width="2.2" stroke-linecap="round"/><path d="M6.5 13c3.3-3 7.7-3 11 0" stroke="#251D18" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="18" r="2" fill="#251D18"/></svg></div>
         <h3>Connect to Wi-Fi</h3>
         <p>A guest joins your network and lands on a clean, branded login page.</p>
       </div>
       <div class="stp">
-        <div class="n">02</div>
         <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="4" y="3.5" width="16" height="17" rx="3" stroke="#251D18" stroke-width="2.2"/><path d="M8 9h8M8 13h5" stroke="#C26A4A" stroke-width="2.2" stroke-linecap="round"/></svg></div>
         <h3>Enter phone & email</h3>
         <p>One quick opt-in and they're online. Their contact is saved securely.</p>
       </div>
       <div class="stp">
-        <div class="n">03</div>
         <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H9l-4 3V5Z" stroke="#251D18" stroke-width="2.2" stroke-linejoin="round"/><path d="M8 10h8" stroke="#C26A4A" stroke-width="2.2" stroke-linecap="round"/></svg></div>
         <h3>Receive offers</h3>
         <p>They get 4–8 well-timed texts a month: specials, slow-day deals, new drinks.</p>
       </div>
       <div class="stp last">
-        <div class="n">04</div>
         <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="#C26A4A" stroke-width="2.2" stroke-linecap="round"/><path d="M18 3v4h-4" stroke="#C26A4A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>They come back</h3>
         <p>An offer lands, they return, and the cycle repeats automatically.</p>
@@ -552,7 +582,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
     <div class="send-grid">
       <div class="ph reveal" style="background-image:url(assets/img/send.jpg)"></div>
       <div class="reveal">
-        <p class="send-intro">We write every message and tune the wording, timing, and offer over time. A typical month mixes:</p>
         <div class="send-list">
           <div class="arow"><div class="t">Weekly specials<small>Your best drink of the week, sent when it lands hardest</small></div><a class="bracket" href="#book">Preview</a></div>
           <div class="arow"><div class="t">Slow-day promos<small>Same-day offers that pull traffic into dead hours</small></div><a class="bracket" href="#book">Preview</a></div>
@@ -568,21 +597,21 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 <section class="section dash on-dark">
   <div class="wrap">
     <h2 class="reveal">Watch it work, in real time.</h2>
-    <div class="panel reveal">
+    <div class="panel reveal" data-dash>
       <div class="panel-bar"><div class="t">Marlow Coffee House · last 30 days</div><div class="live">Live</div></div>
       <div class="tiles">
-        <div class="tile"><div class="n">2,843</div><div class="l">Captured contacts</div><div class="d">↑ 24% vs last 30 days</div></div>
-        <div class="tile"><div class="n">67%</div><div class="l">Repeat visits</div><div class="d">↑ 18% vs last 30 days</div></div>
-        <div class="tile"><div class="n">12,615</div><div class="l">Messages sent</div><div class="d">↑ 32% vs last 30 days</div></div>
+        <div class="tile"><div class="n" data-count="2843">2,843</div><div class="l">Captured contacts</div><div class="d">↑ 24% vs last 30 days</div></div>
+        <div class="tile"><div class="n" data-count="67" data-suffix="%">67%</div><div class="l">Repeat visits</div><div class="d">↑ 18% vs last 30 days</div></div>
+        <div class="tile"><div class="n" data-count="12615">12,615</div><div class="l">Messages sent</div><div class="d">↑ 32% vs last 30 days</div></div>
       </div>
       <div class="charts">
         <div class="chart">
           <div class="ct">New contacts · last 30 days</div>
-          <div class="cn">2,843 <small>↑ 24%</small></div>
+          <div class="cn"><span data-count="2843">2,843</span> <small>↑ 24%</small></div>
           <svg viewBox="0 0 320 90" width="100%" height="90" preserveAspectRatio="none" aria-hidden="true" style="margin-top:8px">
             <defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C26A4A" stop-opacity=".35"/><stop offset="1" stop-color="#C26A4A" stop-opacity="0"/></linearGradient></defs>
-            <path d="M0,76 L28,68 L56,70 L84,54 L112,58 L140,42 L168,48 L196,30 L224,34 L252,20 L280,16 L320,7 L320,90 L0,90 Z" fill="url(#fill)"/>
-            <polyline points="0,76 28,68 56,70 84,54 112,58 140,42 168,48 196,30 224,34 252,20 280,16 320,7" fill="none" stroke="#E0956F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="area" d="M0,76 L28,68 L56,70 L84,54 L112,58 L140,42 L168,48 L196,30 L224,34 L252,20 L280,16 L320,7 L320,90 L0,90 Z" fill="url(#fill)"/>
+            <polyline class="line" pathLength="1" points="0,76 28,68 56,70 84,54 112,58 140,42 168,48 196,30 224,34 252,20 280,16 320,7" fill="none" stroke="#E0956F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
         <div class="chart">
@@ -590,7 +619,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
           <div class="donut-wrap">
             <svg width="88" height="88" viewBox="0 0 92 92" aria-hidden="true">
               <circle cx="46" cy="46" r="34" fill="none" stroke="rgba(250,246,239,.1)" stroke-width="13"/>
-              <circle cx="46" cy="46" r="34" fill="none" stroke="#C26A4A" stroke-width="13" stroke-linecap="round" stroke-dasharray="143 214" transform="rotate(-90 46 46)"/>
+              <circle cx="46" cy="46" r="34" fill="none" stroke="#C26A4A" stroke-width="13" stroke-linecap="round" class="arc" stroke-dasharray="143 214" transform="rotate(-90 46 46)"/>
             </svg>
             <div class="donut-legend">
               <div class="kk"><span class="sw" style="background:#C26A4A"></span> <b>67%</b> Returning</div>
@@ -627,17 +656,18 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 
 <!-- WHO -->
 <section class="section" id="who">
-  <div class="wrap">
-    <div class="prob-grid reveal">
+  <div class="wrap who-wrap">
+    <div class="who-head reveal">
+      <span class="eyebrow">Who it's for</span>
       <h2>Made for sit-down spots with guest Wi-Fi.</h2>
-      <div class="body">If customers linger and use your network, Roundtrip turns that connection into repeat business.</div>
+      <p>If customers linger and use your network, Roundtrip turns that connection into repeat business.</p>
     </div>
-    <div class="who-grid reveal">
-      <div class="who"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 8h11a3 3 0 0 1 0 6h-1M5 8v8a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3" stroke="#C26A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 11c1.5-3 4-4.5 6-4.5" stroke="#251D18" stroke-width="2" stroke-linecap="round"/></svg></div><h3>Coffee shops</h3><p>Independent cafés where regulars are everything.</p></div>
-      <div class="who"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 10c0-3 3.5-5 8-5s8 2 8 5v2H4v-2Z" stroke="#251D18" stroke-width="2" stroke-linejoin="round"/><path d="M4 14h16v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3Z" stroke="#C26A4A" stroke-width="2" stroke-linejoin="round"/></svg></div><h3>Bakeries</h3><p>Turn morning traffic into standing weekend orders.</p></div>
-      <div class="who"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 4h11v9a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V4Z" stroke="#251D18" stroke-width="2" stroke-linejoin="round"/><path d="M15 7h2a2.5 2.5 0 0 1 0 5h-2" stroke="#C26A4A" stroke-width="2" stroke-linecap="round"/></svg></div><h3>Cafés & eateries</h3><p>Sit-down spots where guests connect and stay a while.</p></div>
-      <div class="who"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 12l9-7 9 7" stroke="#C26A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10v9h14v-9" stroke="#251D18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Lounges & more</h3><p>Any local business built on people coming back.</p></div>
-    </div>
+    <ul class="who-list reveal">
+      <li class="who-row"><span class="who-name">Coffee shops</span><span class="who-desc">Independent cafés where regulars are everything.</span><span class="who-arrow" aria-hidden="true">→</span></li>
+      <li class="who-row"><span class="who-name">Bakeries</span><span class="who-desc">Turn morning traffic into standing weekend orders.</span><span class="who-arrow" aria-hidden="true">→</span></li>
+      <li class="who-row"><span class="who-name">Cafés &amp; eateries</span><span class="who-desc">Sit-down spots where guests connect and stay a while.</span><span class="who-arrow" aria-hidden="true">→</span></li>
+      <li class="who-row"><span class="who-name">Lounges &amp; more</span><span class="who-desc">Any local business built on people coming back.</span><span class="who-arrow" aria-hidden="true">→</span></li>
+    </ul>
   </div>
 </section>
 
@@ -656,17 +686,25 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   </div>
 </section>
 
-<!-- GET STARTED band -->
-<section class="getstarted on-dark" id="book">
-  <div class="ph dark" style="background-image:url(assets/img/getstarted.jpg)"></div>
-  <div class="gs-inner">
-    <div class="wrap"><h2 class="display gs-title">Get Started</h2></div>
-    <div class="wrap">
-      <div class="gs-card">
-        <h3>Be a part of it</h3>
-        <p>We only work with a limited number of shops per area to protect your local market. Book a free call and we'll show you exactly how Roundtrip would work for your space. First 30 days free, no setup fee.</p>
-        <a class="btn btn-primary" href="#book">Book a call →</a>
+<!-- GET STARTED -->
+<section class="cta" id="book">
+  <div class="wrap">
+    <div class="cta-card reveal">
+      <div class="cta-copy">
+        <span class="eyebrow">Get started</span>
+        <h2>Your regulars are already here. <em>Let's bring them back.</em></h2>
+        <p>We only work with a few shops per area to protect your local market. Book a free call and we'll show you how Roundtrip would work for your space.</p>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="#book">Book a free call →</a>
+          <a class="cta-link" href="#pricing">See pricing</a>
+        </div>
+        <ul class="cta-points">
+          <li>First 30 days free</li>
+          <li>No setup fee</li>
+          <li>Cancel anytime</li>
+        </ul>
       </div>
+      <div class="cta-media" style="background-image:url(assets/img/getstarted.jpg)" role="img" aria-label="Pour-over coffee being made"></div>
     </div>
   </div>
 </section>
@@ -712,6 +750,27 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
   var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
   els.forEach(function(e){io.observe(e)});
+})();
+(function(){
+  var panel=document.querySelector('[data-dash]'); if(!panel) return;
+  var calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var nums=panel.querySelectorAll('[data-count]');
+  var fmt=function(v,el){return Math.round(v).toLocaleString('en-US')+(el.dataset.suffix||'')};
+  if(!calm) nums.forEach(function(el){el.textContent=fmt(0,el)});
+  var run=function(){
+    panel.classList.add('play');
+    if(calm) return;
+    var t0=performance.now()+250, dur=1600;
+    var tick=function(now){
+      var k=Math.min(1,Math.max(0,(now-t0)/dur)), e=1-Math.pow(1-k,4);
+      nums.forEach(function(el){el.textContent=fmt(+el.dataset.count*e,el)});
+      if(k<1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  if(!('IntersectionObserver' in window)){run();return;}
+  var io=new IntersectionObserver(function(en){if(en[0].isIntersecting){run();io.disconnect();}},{threshold:.35});
+  io.observe(panel);
 })();
 (function(){
   var items=document.querySelectorAll('.faq-list details');
