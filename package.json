@@ -1,0 +1,15 @@
+{
+  "name": "roundtrip-site",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Roundtrip: turn Wi-Fi into regulars. Marketing landing page.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.1.5"
+  }
+}
