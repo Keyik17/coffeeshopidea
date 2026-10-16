@@ -157,7 +157,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .pen-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
 .pen-caption{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:1.3px;text-transform:uppercase;line-height:1.5;color:#F5F2E9}
 .pen-cup{width:46px;height:46px;flex:none;color:#fff}
-.stack-hint{position:absolute;top:18px;right:18px;z-index:5;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);color:#fff;display:grid;place-items:center;font-size:22px;line-height:1;padding-bottom:3px}
 .pen-back-label{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--clay)}
 .pen-back-lead{font-family:"Newsreader",Georgia,serif;font-weight:400;font-size:clamp(1.3rem,2vw,1.7rem);line-height:1.22;color:var(--oat);margin-top:16px}
 .pen-back-stats{display:flex;gap:30px}
@@ -179,7 +178,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .stp p{font-size:14px;color:var(--warm)}
 
 /* ── BENEFITS band with overlay ── */
-.band{position:relative}
+.band{position:relative;overflow:hidden}
 .band .ph{aspect-ratio:16/6.2;min-height:360px}
 @media (max-width:700px){.band .ph{aspect-ratio:auto;min-height:520px}.band-card .ph.thumb{aspect-ratio:16/9;min-height:0}}
 .band-card{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(420px,86%);background:var(--oat);border-radius:var(--r);padding:26px;z-index:3}
@@ -199,7 +198,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 /* ── SHOPS LIKE YOURS (projects) ── */
 .feature-shop{margin-top:44px}
 .fs-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;padding-bottom:18px}
-.fs-head .name{font-size:1.5rem;font-weight:700;letter-spacing:-.02em}
+.fs-head .name{font-family:"Satoshi",sans-serif;font-size:1.5rem;font-weight:700;letter-spacing:-.02em}
 .fs-head .meta-cols{display:flex;gap:26px;align-items:center;font-size:13px;color:var(--warm)}
 .tags{display:flex;gap:8px;flex-wrap:wrap}
 .tag{font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:var(--r);background:var(--espresso);color:var(--oat)}
@@ -210,9 +209,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .fs-desc{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-top:18px;flex-wrap:wrap}
 .fs-desc p{max-width:62ch;font-size:14.5px;color:var(--warm)}
 .shop-rows{margin-top:40px;border-top:1px solid var(--rule)}
-.srow{display:grid;grid-template-columns:1.4fr 1fr .5fr 1.3fr;gap:20px;align-items:center;padding:26px 4px;border-bottom:1px solid var(--rule);transition:padding-left .2s ease}
+.srow{display:grid;grid-template-columns:1.4fr 1fr .5fr 1.3fr;gap:20px;align-items:center;padding:26px 4px;border-bottom:1px solid var(--rule);transition:padding-left .45s cubic-bezier(.22,1,.36,1)}
 .srow:hover{padding-left:14px}
-.srow .name{font-size:1.4rem;font-weight:700;letter-spacing:-.02em}
+.srow .name{font-family:"Satoshi",sans-serif;font-size:1.4rem;font-weight:700;letter-spacing:-.02em}
 .srow .loc,.srow .yr{font-size:13.5px;color:var(--warm)}
 .srow .tags{justify-content:flex-end}
 @media (max-width:760px){.srow{grid-template-columns:1fr;gap:8px}.srow .tags{justify-content:flex-start}}
@@ -222,7 +221,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 @media (max-width:860px){.send-grid{grid-template-columns:1fr;gap:32px}}
 .send-grid .ph{aspect-ratio:4/3.3}
 .send-list{border-top:1px solid var(--rule)}
-.arow{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 2px;border-bottom:1px solid var(--rule);transition:padding-left .2s ease}
+.arow{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 2px;border-bottom:1px solid var(--rule);transition:padding-left .45s cubic-bezier(.22,1,.36,1)}
 .arow:hover{padding-left:10px}
 .arow .t{font-size:1.15rem;font-weight:600}
 .arow .t small{display:block;font-weight:400;font-size:13px;color:var(--warm);margin-top:3px;letter-spacing:0;text-transform:none}
@@ -358,6 +357,95 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(79,191,126,.55)}70%{box-shadow:0 0 0 8px rgba(79,191,126,0)}100%{box-shadow:0 0 0 0 rgba(79,191,126,0)}}
 @media (prefers-reduced-motion:reduce){[data-dash] .tile,[data-dash] .chart,[data-dash] .area{opacity:1;transform:none;transition:none}[data-dash] .line{stroke-dashoffset:0;transition:none}[data-dash] .arc{stroke-dasharray:143 214;transition:none}.panel-bar .live::before{animation:none}.cta-media{transform:none}}
 
+
+/* ===== consistency + interaction layer ===== */
+:root{--ease:cubic-bezier(.22,.61,.36,1);--ease-out:cubic-bezier(.22,1,.36,1);--h2:clamp(2rem,3.4vw,2.75rem)}
+.section{padding:96px 0}
+@media (max-width:640px){.section{padding:64px 0}}
+section h2,.sec-title,.intro-left h2,.prob-grid h2,.prob-text h2,.dash h2,.who-head h2,.cta-copy h2{font-family:"Satoshi",sans-serif;font-size:var(--h2);font-weight:700;line-height:1.06;letter-spacing:-.022em;text-transform:none;text-align:left;max-width:20ch}
+.guar h2{font-size:clamp(1.5rem,3vw,2.1rem);max-width:none}
+section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em;line-height:1.2}
+.prob-grid .body,.prob-text p,.who-head p,.cta-copy p,.fs-desc p{font-size:16px;line-height:1.6}
+.stp p,.fcard p,.fcard .k,.band-card p,.who-desc,.faq-list .ans,.send-list small{font-size:14.5px;line-height:1.6}
+.eyebrow{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--clay-ink);margin-bottom:16px}
+.on-dark .eyebrow,.cta .eyebrow{color:rgba(250,246,239,.6)}
+.cta-copy h2 em{color:var(--latte)}
+.cta-points li::before{background:rgba(250,246,239,.55)}
+.cta-link{border-bottom:0;padding:0;display:inline-flex;align-items:center;gap:8px;opacity:.85;transition:opacity .25s var(--ease),gap .35s var(--ease-out)}
+.cta-link:hover{opacity:1;gap:12px}
+.reveal{transition:opacity .8s var(--ease),transform .8s var(--ease)}
+
+/* problem card: smooth reveal + tilt */
+.prob-stack{perspective:1200px;-webkit-tap-highlight-color:transparent}
+.prob-stack .stack-inner{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .6s var(--ease-out)}
+.prob-stack.tilting .stack-inner{transition:transform .12s linear}
+.stack-front,.stack-back{transition:transform .8s var(--ease-out),opacity .6s var(--ease),filter .8s var(--ease-out);will-change:transform,opacity}
+.stack-back{z-index:1;transform:translate(16px,16px) scale(.95);filter:brightness(.8)}
+.stack-front{z-index:2}
+.prob-stack:hover .stack-front,.prob-stack.open .stack-front,.prob-stack:focus-visible .stack-front{transform:translate(-18px,-22px) rotate(-4deg) scale(.96);opacity:0;z-index:2;pointer-events:none}
+.prob-stack:hover .stack-back,.prob-stack.open .stack-back,.prob-stack:focus-visible .stack-back{transform:none;filter:none;z-index:1}
+.stack-glare{position:absolute;inset:0;border-radius:var(--r);pointer-events:none;z-index:3;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.16),transparent 55%);opacity:0;transition:opacity .4s var(--ease)}
+.prob-stack.tilting .stack-glare{opacity:1}
+.pen-back-label{color:rgba(250,246,239,.62)}
+.pen-back-stats b{color:var(--oat)}
+.pen-back-stats span{color:rgba(250,246,239,.72)}
+.sb-content>div:first-child,.pen-back-stats>div{transform:translateY(10px);opacity:0;transition:transform .7s var(--ease-out) .15s,opacity .6s var(--ease) .15s}
+.pen-back-stats>div:nth-child(2){transition-delay:.25s}
+.prob-stack:hover .sb-content>div:first-child,.prob-stack.open .sb-content>div:first-child,.prob-stack:hover .pen-back-stats>div,.prob-stack.open .pen-back-stats>div{transform:none;opacity:1}
+
+/* band carousel */
+.band-bg{transform:scale(1.04);transition:transform 8s linear}
+.band.in .band-bg{transform:scale(1.1)}
+.band-card .thumb{position:relative;overflow:hidden}
+.slide-img{position:absolute;inset:0;background:center/cover no-repeat;opacity:0;transform:scale(1.06);transition:opacity .7s var(--ease),transform 1.2s var(--ease-out)}
+.slide-img.on{opacity:1;transform:none}
+.slide-texts{display:grid}
+.slide-text{grid-area:1/1;opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .6s var(--ease-out);pointer-events:none}
+.slide-text.on{opacity:1;transform:none;transition-delay:.12s;pointer-events:auto}
+.slide-text h3{margin-bottom:8px}
+.dots{display:flex;gap:8px;margin-top:18px}
+.dot{all:unset;cursor:pointer;flex:1;height:3px;border-radius:3px;background:rgba(37,29,24,.14);overflow:hidden;position:relative}
+.dot i{position:absolute;inset:0;background:var(--espresso);transform:scaleX(0);transform-origin:left}
+.dot.done i{transform:scaleX(1)}
+.dot.on i{animation:fill var(--dur,6s) linear forwards}
+[data-carousel].paused .dot.on i{animation-play-state:paused}
+@keyframes fill{to{transform:scaleX(1)}}
+.dot:focus-visible{outline:2px solid var(--clay);outline-offset:4px}
+.band-nav button{transition:opacity .25s var(--ease),gap .35s var(--ease-out)}
+.band-nav button:hover{gap:14px}
+.band-nav .lbl{transition:opacity .3s var(--ease)}
+@media (prefers-reduced-motion:reduce){.slide-img,.slide-text,.band-bg{transition:opacity .2s}.dot.on i{animation:none;transform:scaleX(1)}}
+
+/* dashboard: ranges, hover readout, live */
+.pb-right{display:flex;align-items:center;gap:18px}
+.range{position:relative;display:flex;background:rgba(250,246,239,.06);border:1px solid var(--rule-dk);border-radius:999px;padding:3px}
+.range button{all:unset;position:relative;z-index:1;cursor:pointer;font-size:12px;font-weight:600;letter-spacing:.04em;color:rgba(250,246,239,.6);padding:6px 12px;border-radius:999px;transition:color .3s var(--ease)}
+.range button.on{color:var(--espresso)}
+.range button:focus-visible{outline:2px solid var(--oat);outline-offset:2px}
+.range-pill{position:absolute;top:3px;bottom:3px;left:0;width:0;border-radius:999px;background:var(--oat);transition:transform .45s var(--ease-out),width .45s var(--ease-out)}
+@media (max-width:520px){.panel-bar{flex-wrap:wrap;gap:12px}}
+.tile{transition:transform .45s var(--ease-out),border-color .3s,background .3s,opacity .7s var(--ease)}
+[data-dash].play .tile:hover{transform:translateY(-3px)}
+.tile .n.bump{animation:bump .6s var(--ease-out)}
+@keyframes bump{0%{color:#8FCBA6}100%{color:var(--oat)}}
+.plot{position:relative;margin-top:10px;cursor:crosshair}
+.plot svg{display:block}
+.cross{position:absolute;top:0;bottom:0;width:1px;background:rgba(250,246,239,.25);opacity:0;transition:opacity .2s;pointer-events:none}
+.pt{position:absolute;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--oat);box-shadow:0 0 0 4px rgba(224,149,111,.35);opacity:0;transition:opacity .2s;pointer-events:none}
+.tip{position:absolute;top:-6px;transform:translate(-50%,-100%);background:var(--oat);color:var(--espresso);border-radius:6px;padding:6px 10px;font-size:12px;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none;box-shadow:0 8px 24px -10px rgba(0,0,0,.6)}
+.tip b{font-family:"Satoshi";font-weight:700;margin-right:6px}
+.plot.hov .cross,.plot.hov .pt,.plot.hov .tip{opacity:1}
+.arc{transition:stroke-dasharray .9s var(--ease-out)}
+
+/* FAQ: same easing as the rest */
+.faq-list summary{transition:color .3s var(--ease)}
+.faq-list summary:hover{color:var(--clay-ink)}
+.faq-list summary::after{content:"";width:12px;height:12px;right:6px;border-right:2px solid var(--clay);border-bottom:2px solid var(--clay);transform:translateY(-70%) rotate(45deg);transition:transform .5s var(--ease-out)}
+.faq-list details[open] summary::after{content:"";transform:translateY(-25%) rotate(-135deg)}
+.faq-list .ans-wrap{overflow:hidden}
+.faq-list .ans{transition:opacity .5s var(--ease),transform .6s var(--ease-out)}
+.faq-list details:not([open]) .ans,.faq-list details.closing .ans{opacity:0;transform:translateY(-6px)}
+
 /* reveal */
 .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
 .reveal.in{opacity:1;transform:none}
@@ -451,7 +539,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
         <h2>They connect to your Wi-Fi, then disappear.</h2>
         <p>Every guest who uses your network leaves as a complete stranger: no name, no number, no way to bring them back. That's <em>thousands of would-be regulars</em> a year you'll never reach again.</p>
       </div>
-      <div class="prob-stack" role="button" tabindex="0" aria-label="Reveal the image behind for more on the problem">
+      <div class="prob-stack" role="button" tabindex="0" aria-label="Reveal the image behind for more on the problem"><div class="stack-inner">
         <div class="stack-back" style="background-image:url(assets/img/problem-back.jpg)">
           <div class="sb-content">
             <div>
@@ -459,13 +547,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
               <p class="pen-back-lead">Guests connect, enjoy their visit, and walk out without a trace: no name, no number, no way to reach them.</p>
             </div>
             <div class="pen-back-stats">
-              <div><b>≈3,000</b><span>guests a year</span></div>
+              <div><b data-to="3000" data-pre="≈">≈3,000</b><span>guests a year</span></div>
               <div><b>0</b><span>you can reach today</span></div>
             </div>
           </div>
         </div>
         <div class="stack-front pen-card" style="background-image:url(assets/img/pen-frame.jpg)">
-          <span class="stack-hint" aria-hidden="true">+</span>
           <div class="pen-inner" style="background-image:url(assets/img/pen-card.jpg)">
             <p class="pen-quote">Your regulars are already<br>looking for a reason<br>to come back.</p>
             <div class="pen-foot">
@@ -478,7 +565,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
               </svg>
             </div>
           </div>
-        </div>
+        </div><div class="stack-glare"></div></div>
       </div>
     </div>
   </div>
@@ -488,7 +575,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 <section class="section" id="how">
   <div class="wrap">
     <div class="prob-grid reveal">
-      <h2 style="grid-column:auto">Four steps, then it runs on its own.</h2>
+      <h2>Four steps, then it runs on its own.</h2>
       <div class="body">Your customer sees one simple page. You get a growing list and a marketing engine working quietly in the background. Every offer starts the trip over again.</div>
     </div>
     <div class="steps reveal">
@@ -517,23 +604,23 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 </section>
 
 <!-- BENEFITS band -->
-<section class="band reveal" aria-label="Benefits">
-  <div class="ph dark" style="background-image:url(assets/img/band.jpg)"></div>
+<section class="band reveal" aria-label="Benefits" aria-roledescription="carousel" data-carousel>
+  <div class="ph dark band-bg" style="background-image:url(assets/img/band.jpg)"></div>
   <div class="band-card">
-    <div class="ph thumb" style="background-image:url(assets/img/thumb.jpg)"></div>
-    <h3>Fill your slow days</h3>
-    <p>A same-day text, "BOGO before noon", turns a dead Tuesday into a line at the counter. Every campaign is a fresh reason to come in.</p>
+    <div class="ph thumb"><div class="slide-img" style="background-image:url(assets/img/intro.jpg)"></div><div class="slide-img on" style="background-image:url(assets/img/thumb.jpg)"></div><div class="slide-img" style="background-image:url(assets/img/shop2.jpg)"></div></div>
+    <div class="slide-texts" aria-live="polite"><div class="slide-text"><h3>Build a list</h3><p>Every guest who joins your Wi-Fi leaves a phone number, opted in. Your list grows on its own, every day you're open.</p></div><div class="slide-text on"><h3>Fill your slow days</h3><p>A same-day text, "BOGO before noon", turns a dead Tuesday into a line at the counter. Every campaign is a fresh reason to come in.</p></div><div class="slide-text"><h3>More repeat visits</h3><p>Regulars hear from you a few times a month, so the next visit is always on their mind.</p></div></div>
+    <div class="dots"><button type="button" class="dot" aria-label="Build a list"><i></i></button><button type="button" class="dot on" aria-label="Fill your slow days"><i></i></button><button type="button" class="dot" aria-label="More repeat visits"><i></i></button></div>
   </div>
   <div class="band-nav">
-    <button type="button">← Build a list</button>
-    <button type="button">More repeat visits →</button>
+    <button type="button" data-dir="-1"><span class="arr">←</span> <span class="lbl">Build a list</span></button>
+    <button type="button" data-dir="1"><span class="lbl">More repeat visits</span> <span class="arr">→</span></button>
   </div>
 </section>
 
 <!-- SHOPS LIKE YOURS (projects) -->
 <section class="section" id="shops">
   <div class="wrap">
-    <h2 class="display big-title reveal">Shops Like Yours</h2>
+    <h2 class="sec-title reveal">Shops like yours.</h2>
 
     <div class="feature-shop reveal">
       <div class="fs-head">
@@ -598,21 +685,21 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   <div class="wrap">
     <h2 class="reveal">Watch it work, in real time.</h2>
     <div class="panel reveal" data-dash>
-      <div class="panel-bar"><div class="t">Marlow Coffee House · last 30 days</div><div class="live">Live</div></div>
+      <div class="panel-bar"><div class="t">Marlow Coffee House</div><div class="pb-right"><div class="range" role="tablist" aria-label="Date range"><button type="button" data-r="7">7D</button><button type="button" data-r="30" class="on">30D</button><button type="button" data-r="90">90D</button><span class="range-pill"></span></div><div class="live">Live</div></div></div>
       <div class="tiles">
-        <div class="tile"><div class="n" data-count="2843">2,843</div><div class="l">Captured contacts</div><div class="d">↑ 24% vs last 30 days</div></div>
-        <div class="tile"><div class="n" data-count="67" data-suffix="%">67%</div><div class="l">Repeat visits</div><div class="d">↑ 18% vs last 30 days</div></div>
-        <div class="tile"><div class="n" data-count="12615">12,615</div><div class="l">Messages sent</div><div class="d">↑ 32% vs last 30 days</div></div>
+        <div class="tile"><div class="n" data-count="2843">2,843</div><div class="l">Captured contacts</div><div class="d" data-delta>↑ 24% vs last 30 days</div></div>
+        <div class="tile"><div class="n" data-count="67" data-suffix="%">67%</div><div class="l">Repeat visits</div><div class="d" data-delta>↑ 18% vs last 30 days</div></div>
+        <div class="tile"><div class="n" data-count="12615">12,615</div><div class="l">Messages sent</div><div class="d" data-delta>↑ 32% vs last 30 days</div></div>
       </div>
       <div class="charts">
         <div class="chart">
-          <div class="ct">New contacts · last 30 days</div>
-          <div class="cn"><span data-count="2843">2,843</span> <small>↑ 24%</small></div>
-          <svg viewBox="0 0 320 90" width="100%" height="90" preserveAspectRatio="none" aria-hidden="true" style="margin-top:8px">
+          <div class="ct">New contacts · <span data-rl>last 30 days</span></div>
+          <div class="cn"><span data-count="2843">2,843</span> <small data-delta-s>↑ 24%</small></div>
+          <div class="plot"><svg viewBox="0 0 320 90" width="100%" height="110" preserveAspectRatio="none" aria-hidden="true">
             <defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C26A4A" stop-opacity=".35"/><stop offset="1" stop-color="#C26A4A" stop-opacity="0"/></linearGradient></defs>
             <path class="area" d="M0,76 L28,68 L56,70 L84,54 L112,58 L140,42 L168,48 L196,30 L224,34 L252,20 L280,16 L320,7 L320,90 L0,90 Z" fill="url(#fill)"/>
             <polyline class="line" pathLength="1" points="0,76 28,68 56,70 84,54 112,58 140,42 168,48 196,30 224,34 252,20 280,16 320,7" fill="none" stroke="#E0956F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          </svg><div class="cross"></div><div class="pt"></div><div class="tip"><b></b><span></span></div></div>
         </div>
         <div class="chart">
           <div class="ct">Repeat visits</div>
@@ -622,8 +709,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
               <circle cx="46" cy="46" r="34" fill="none" stroke="#C26A4A" stroke-width="13" stroke-linecap="round" class="arc" stroke-dasharray="143 214" transform="rotate(-90 46 46)"/>
             </svg>
             <div class="donut-legend">
-              <div class="kk"><span class="sw" style="background:#C26A4A"></span> <b>67%</b> Returning</div>
-              <div class="kk"><span class="sw" style="background:rgba(250,246,239,.25)"></span> <b>33%</b> New</div>
+              <div class="kk"><span class="sw" style="background:#C26A4A"></span> <b data-ret>67%</b> Returning</div>
+              <div class="kk"><span class="sw" style="background:rgba(250,246,239,.25)"></span> <b data-new>33%</b> New</div>
             </div>
           </div>
         </div>
@@ -635,7 +722,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 <!-- PRICING -->
 <section class="section" id="pricing">
   <div class="wrap">
-    <h2 class="sec-title reveal" style="max-width:24ch">One flat price. Everything included.</h2>
+    <h2 class="sec-title reveal">One flat price. Everything included.</h2>
     <div class="pricing reveal">
       <div class="price-lead">
         <div class="price-big"><span class="n">$499</span><span class="per">/ month</span></div>
@@ -674,14 +761,14 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 <!-- FAQ -->
 <section class="section" id="faq">
   <div class="wrap">
-    <h2 class="display big-title reveal" style="text-align:left;font-size:clamp(2.2rem,6vw,4.5rem)">Good Questions,<br>Straight Answers</h2>
+    <h2 class="sec-title reveal">Good questions, straight answers.</h2>
     <div class="faq-list reveal">
-      <details><summary>How does installation work?</summary><div class="ans">We handle the whole setup. Your guest Wi-Fi is redirected to the branded login page. It's usually a quick, remote configuration. There's nothing for you to build or maintain, and no disruption to your existing internet.</div></details>
-      <details><summary>Do customers actually agree to be contacted?</summary><div class="ans">Yes. Every customer opts in on the login page before they connect, and the page clearly states they'll receive occasional texts. Every message includes a one-tap way to opt out (reply STOP), so your list stays consent-based and compliant.</div></details>
-      <details><summary>Does it work with my current Wi-Fi?</summary><div class="ans">In almost all cases, yes. The system is designed to sit on top of your existing guest network and standard router setups. On a quick call we'll confirm compatibility before you commit to anything.</div></details>
-      <details><summary>How many texts will you send my customers?</summary><div class="ans">Between 4 and 8 per month: enough to stay top of mind, not so many that people tune out. We optimize the timing and offers so each message earns its place, and we never over-send.</div></details>
-      <details><summary>Can I cancel? Is there a contract?</summary><div class="ans">No contract. The plan is month to month and you can cancel anytime. We'd rather keep you because it's working than lock you into a term.</div></details>
-      <details><summary>How does the free trial work?</summary><div class="ans">Your first 30 days are free. We place a card on file when you start, but you're not charged during the trial. After 30 days, your first paid month is backed by our money-back guarantee.</div></details>
+      <details><summary>How does installation work?</summary><div class="ans-wrap"><div class="ans">We handle the whole setup. Your guest Wi-Fi is redirected to the branded login page. It's usually a quick, remote configuration. There's nothing for you to build or maintain, and no disruption to your existing internet.</div></div></details>
+      <details><summary>Do customers actually agree to be contacted?</summary><div class="ans-wrap"><div class="ans">Yes. Every customer opts in on the login page before they connect, and the page clearly states they'll receive occasional texts. Every message includes a one-tap way to opt out (reply STOP), so your list stays consent-based and compliant.</div></div></details>
+      <details><summary>Does it work with my current Wi-Fi?</summary><div class="ans-wrap"><div class="ans">In almost all cases, yes. The system is designed to sit on top of your existing guest network and standard router setups. On a quick call we'll confirm compatibility before you commit to anything.</div></div></details>
+      <details><summary>How many texts will you send my customers?</summary><div class="ans-wrap"><div class="ans">Between 4 and 8 per month: enough to stay top of mind, not so many that people tune out. We optimize the timing and offers so each message earns its place, and we never over-send.</div></div></details>
+      <details><summary>Can I cancel? Is there a contract?</summary><div class="ans-wrap"><div class="ans">No contract. The plan is month to month and you can cancel anytime. We'd rather keep you because it's working than lock you into a term.</div></div></details>
+      <details><summary>How does the free trial work?</summary><div class="ans-wrap"><div class="ans">Your first 30 days are free. We place a card on file when you start, but you're not charged during the trial. After 30 days, your first paid month is backed by our money-back guarantee.</div></div></details>
     </div>
   </div>
 </section>
@@ -696,7 +783,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
         <p>We only work with a few shops per area to protect your local market. Book a free call and we'll show you how Roundtrip would work for your space.</p>
         <div class="cta-actions">
           <a class="btn btn-primary" href="#book">Book a free call →</a>
-          <a class="cta-link" href="#pricing">See pricing</a>
+          <a class="cta-link" href="#pricing">See pricing <span aria-hidden="true">→</span></a>
         </div>
         <ul class="cta-points">
           <li>First 30 days free</li>
@@ -772,16 +859,106 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   var io=new IntersectionObserver(function(en){if(en[0].isIntersecting){run();io.disconnect();}},{threshold:.35});
   io.observe(panel);
 })();
+
 (function(){
-  var items=document.querySelectorAll('.faq-list details');
-  items.forEach(function(d){d.addEventListener('toggle',function(){if(d.open){items.forEach(function(o){if(o!==d)o.open=false;})}})});
+  // problem card: tap to toggle, pointer tilt, stat count-up
+  var calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.prob-stack').forEach(function(f){
+    var inner=f.querySelector('.stack-inner');
+    var counted=false;
+    var count=function(){ if(counted||calm) return; counted=true;
+      f.querySelectorAll('[data-to]').forEach(function(b){ var to=+b.dataset.to, pre=b.dataset.pre||'', t0=performance.now();
+        (function tick(now){ var k=Math.min(1,(now-t0)/1200), e=1-Math.pow(1-k,4); b.textContent=pre+Math.round(to*e).toLocaleString('en-US'); if(k<1) requestAnimationFrame(tick); })(t0); }); };
+    f.addEventListener('mouseenter',count); f.addEventListener('focus',count);
+    f.addEventListener('click',function(){ f.classList.toggle('open'); count(); });
+    f.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); f.classList.toggle('open'); count(); } });
+    if(calm) return;
+    f.addEventListener('pointermove',function(e){ if(e.pointerType!=='mouse') return; var r=f.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+      f.classList.add('tilting'); inner.style.setProperty('--ry',((x-.5)*10).toFixed(2)+'deg'); inner.style.setProperty('--rx',((.5-y)*8).toFixed(2)+'deg');
+      f.style.setProperty('--gx',(x*100)+'%'); f.style.setProperty('--gy',(y*100)+'%'); });
+    f.addEventListener('pointerleave',function(){ f.classList.remove('tilting'); inner.style.setProperty('--rx','0deg'); inner.style.setProperty('--ry','0deg'); });
+  });
 })();
 (function(){
-  document.querySelectorAll('.prob-stack').forEach(function(f){
-    var toggle=function(){f.classList.toggle('open')};
-    f.addEventListener('click',toggle);
-    f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
-  });
+  // band carousel
+  var c=document.querySelector('[data-carousel]'); if(!c) return;
+  var imgs=c.querySelectorAll('.slide-img'), txt=c.querySelectorAll('.slide-text'), dots=c.querySelectorAll('.dot'), nav=c.querySelectorAll('.band-nav button');
+  var names=[].map.call(txt,function(t){return t.querySelector('h3').textContent});
+  var n=imgs.length, i=1, timer, calm=matchMedia('(prefers-reduced-motion: reduce)').matches, DUR=6000;
+  c.style.setProperty('--dur',DUR+'ms');
+  var go=function(k){ i=(k+n)%n;
+    [imgs,txt].forEach(function(L){ L.forEach(function(el,j){ el.classList.toggle('on',j===i); }); });
+    dots.forEach(function(d,j){ d.classList.toggle('done',j<i); d.classList.remove('on'); void d.offsetWidth; if(j===i) d.classList.add('on'); });
+    nav[0].querySelector('.lbl').textContent=names[(i-1+n)%n]; nav[1].querySelector('.lbl').textContent=names[(i+1)%n];
+    clearTimeout(timer); if(!calm && !c.classList.contains('paused')) timer=setTimeout(function(){go(i+1)},DUR);
+  };
+  nav.forEach(function(b){ b.addEventListener('click',function(){ go(i+ +b.dataset.dir); }); });
+  dots.forEach(function(d,j){ d.addEventListener('click',function(){ go(j); }); });
+  c.addEventListener('mouseenter',function(){ c.classList.add('paused'); clearTimeout(timer); });
+  c.addEventListener('mouseleave',function(){ c.classList.remove('paused'); go(i); });
+  var sx=null; c.addEventListener('touchstart',function(e){ sx=e.touches[0].clientX; },{passive:true});
+  c.addEventListener('touchend',function(e){ if(sx===null) return; var dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40) go(i+(dx<0?1:-1)); sx=null; });
+  c.tabIndex=0; c.addEventListener('keydown',function(e){ if(e.key==='ArrowRight') go(i+1); if(e.key==='ArrowLeft') go(i-1); });
+  var io=new IntersectionObserver(function(en){ if(en[0].isIntersecting){ go(i); io.disconnect(); } },{threshold:.4}); io.observe(c);
+})();
+(function(){
+  // dashboard: date ranges, hover readout, live ticks
+  var panel=document.querySelector('[data-dash]'); if(!panel) return;
+  var calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var D={
+    7:{c:712,r:64,m:3104,dc:'↑ 9% vs last 7 days',dr:'↑ 6% vs last 7 days',dm:'↑ 11% vs last 7 days',ds:'↑ 9%',rl:'last 7 days',s:[38,52,47,61,58,74,82]},
+    30:{c:2843,r:67,m:12615,dc:'↑ 24% vs last 30 days',dr:'↑ 18% vs last 30 days',dm:'↑ 32% vs last 30 days',ds:'↑ 24%',rl:'last 30 days',s:[14,22,20,36,32,48,42,60,56,70,74,83]},
+    90:{c:7420,r:71,m:34980,dc:'↑ 41% vs last 90 days',dr:'↑ 22% vs last 90 days',dm:'↑ 47% vs last 90 days',ds:'↑ 41%',rl:'last 90 days',s:[10,16,15,24,30,28,40,46,44,58,66,70,77,88]}
+  };
+  var line=panel.querySelector('.line'), area=panel.querySelector('.area'), plot=panel.querySelector('.plot');
+  var cross=plot.querySelector('.cross'), pt=plot.querySelector('.pt'), tip=plot.querySelector('.tip');
+  var tiles=panel.querySelectorAll('.tile .n'), deltas=panel.querySelectorAll('[data-delta]'), cn=panel.querySelector('.cn [data-count]');
+  var arc=panel.querySelector('.arc'), ret=panel.querySelector('[data-ret]'), nw=panel.querySelector('[data-new]');
+  var cur=30, shown=D[30].s.slice();
+  var fmt=function(v){return Math.round(v).toLocaleString('en-US')};
+  var pts=function(s){ var W=320,H=90; return s.map(function(v,k){ return [k*W/(s.length-1), H-8-(v/100)*(H-16)]; }); };
+  var resample=function(s,len){ var out=[]; for(var k=0;k<len;k++){ var x=k*(s.length-1)/(len-1), a=Math.floor(x), b=Math.min(s.length-1,a+1); out.push(s[a]+(s[b]-s[a])*(x-a)); } return out; };
+  var draw=function(s){ var P=pts(s); line.setAttribute('points',P.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1)}).join(' '));
+    area.setAttribute('d','M'+P.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1)}).join(' L')+' L320,90 L0,90 Z'); };
+  draw(shown);
+  var anim=function(from,to,ms,step){ if(calm){step(1);return;} var t0=performance.now(); (function f(now){ var k=Math.min(1,(now-t0)/ms), e=1-Math.pow(1-k,4); step(e); if(k<1) requestAnimationFrame(f); })(t0); };
+  var setRange=function(r){ if(r===cur) return; var A=D[cur], B=D[r];
+    var from=resample(shown,24), to=resample(B.s,24);
+    var vals=[[A.c,B.c],[A.r,B.r],[A.m,B.m]];
+    anim(0,1,900,function(e){
+      shown=from.map(function(v,k){return v+(to[k]-v)*e}); draw(shown);
+      tiles.forEach(function(el,k){ el.textContent=fmt(vals[k][0]+(vals[k][1]-vals[k][0])*e)+(k===1?'%':''); });
+      cn.textContent=fmt(A.c+(B.c-A.c)*e);
+    });
+    shown=to; setTimeout(function(){ shown=B.s.slice(); draw(shown); }, calm?0:920);
+    deltas[0].textContent=B.dc; deltas[1].textContent=B.dr; deltas[2].textContent=B.dm;
+    panel.querySelector('[data-delta-s]').textContent=B.ds; panel.querySelector('[data-rl]').textContent=B.rl;
+    arc.setAttribute('stroke-dasharray',(214*B.r/100).toFixed(0)+' 214'); ret.textContent=B.r+'%'; nw.textContent=(100-B.r)+'%';
+    cur=r;
+  };
+  var tabs=panel.querySelectorAll('.range button'), pill=panel.querySelector('.range-pill');
+  var place=function(){ var on=panel.querySelector('.range button.on'); pill.style.width=on.offsetWidth+'px'; pill.style.transform='translateX('+(on.offsetLeft)+'px)'; };
+  tabs.forEach(function(t){ t.addEventListener('click',function(){ tabs.forEach(function(x){x.classList.toggle('on',x===t)}); place(); setRange(+t.dataset.r); }); });
+  place(); addEventListener('resize',place);
+  // hover readout
+  plot.addEventListener('pointermove',function(e){ var r=plot.getBoundingClientRect(), x=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));
+    var s=D[cur].s, k=Math.round(x*(s.length-1)), P=pts(s)[k], px=P[0]/320*r.width, py=P[1]/90*r.height;
+    cross.style.left=px+'px'; pt.style.left=px+'px'; pt.style.top=py+'px'; tip.style.left=Math.max(40,Math.min(r.width-40,px))+'px'; tip.style.top=(py-10)+'px';
+    var total=D[cur].c, share=s[k]/s.reduce(function(a,b){return a+b},0);
+    tip.querySelector('b').textContent='+'+fmt(total*share); var days=cur, per=days/(s.length-1); tip.querySelector('span').textContent=k===s.length-1?'today':Math.round((s.length-1-k)*per)+' days ago';
+    plot.classList.add('hov'); });
+  plot.addEventListener('pointerleave',function(){ plot.classList.remove('hov'); });
+  // live: a message goes out every few seconds
+  if(!calm) setInterval(function(){ if(!panel.classList.contains('play')||document.hidden) return; var el=tiles[2], v=+el.textContent.replace(/,/g,'')+1+Math.floor(Math.random()*3); D[cur].m=v; el.textContent=fmt(v); el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }, 3200);
+})();
+(function(){
+  // FAQ: smooth open/close with the site's easing, one open at a time
+  var calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items=[].slice.call(document.querySelectorAll('.faq-list details'));
+  var ease='cubic-bezier(.22,.61,.36,1)';
+  var open=function(d){ var w=d.querySelector('.ans-wrap'); d.open=true; if(calm) return; var h=w.scrollHeight; w.animate([{height:'0px'},{height:h+'px'}],{duration:500,easing:ease}); };
+  var close=function(d){ var w=d.querySelector('.ans-wrap'); if(calm){ d.open=false; return; } d.classList.add('closing'); var a=w.animate([{height:w.offsetHeight+'px'},{height:'0px'}],{duration:450,easing:ease}); a.onfinish=function(){ d.open=false; d.classList.remove('closing'); }; };
+  items.forEach(function(d){ d.querySelector('summary').addEventListener('click',function(e){ e.preventDefault(); if(d.open && !d.classList.contains('closing')){ close(d); } else { items.forEach(function(o){ if(o!==d && o.open) close(o); }); open(d); } }); });
 })();
 </script>
 </body>
