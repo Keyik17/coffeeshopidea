@@ -398,10 +398,6 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
 .pen-back-label{color:rgba(250,246,239,.62)}
 .pen-back-stats b{color:var(--oat)}
 .pen-back-stats span{color:rgba(250,246,239,.72)}
-.sb-content>div:first-child,.pen-back-stats>div{transform:translateY(10px);opacity:0;transition:transform .7s var(--ease-out) .15s,opacity .6s var(--ease) .15s}
-.pen-back-stats>div:nth-child(2){transition-delay:.25s}
-.prob-stack.swapped .sb-content>div:first-child,.prob-stack.swapped .pen-back-stats>div{transform:none;opacity:1;transition-delay:.45s}
-.prob-stack.swapped .pen-back-stats>div:nth-child(2){transition-delay:.55s}
 
 /* band carousel */
 .band-bg{transform:scale(1.04);transition:transform 8s linear}
@@ -455,6 +451,26 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
 .faq-list .ans-wrap{overflow:hidden}
 .faq-list .ans{transition:opacity .5s var(--ease),transform .6s var(--ease-out)}
 .faq-list details:not([open]) .ans,.faq-list details.closing .ans{opacity:0;transform:translateY(-6px)}
+
+
+/* text on the frame photo: the photo is bright, so a tint fades in first, then the copy */
+.frame-photo{overflow:hidden}
+.fp-shade{position:absolute;inset:0;background:linear-gradient(170deg,rgba(22,14,8,.82) 0%,rgba(22,14,8,.55) 42%,rgba(22,14,8,.62) 62%,rgba(22,14,8,.9) 100%);opacity:0;transition:opacity .5s var(--ease)}
+.frame-photo .sb-content{position:absolute;inset:0;z-index:2;padding:34px;display:flex;flex-direction:column;justify-content:space-between;color:var(--oat);text-shadow:0 1px 14px rgba(22,14,8,.35)}
+.frame-photo .pen-back-label{color:rgba(250,246,239,.75)}
+.frame-photo .pen-back-lead{color:#fff}
+.frame-photo .pen-back-stats b{color:#fff}
+.frame-photo .pen-back-stats span{color:rgba(250,246,239,.8)}
+.frame-photo .pen-back-label,.frame-photo .pen-back-lead,.frame-photo .pen-back-stats>div{opacity:0;transform:translateY(14px);filter:blur(6px);transition:opacity .35s var(--ease),transform .35s var(--ease),filter .35s var(--ease)}
+.frame-photo .sb-content>div:first-child{opacity:1;transform:none;filter:none}
+.prob-stack.swapped .fp-shade{opacity:1;transition-delay:.3s}
+.prob-stack.swapped .frame-photo .pen-back-label,.prob-stack.swapped .frame-photo .pen-back-lead,.prob-stack.swapped .frame-photo .pen-back-stats>div{opacity:1;transform:none;filter:none;transition:opacity .7s var(--ease),transform .8s var(--ease-out),filter .7s var(--ease)}
+.prob-stack.swapped .frame-photo .pen-back-label{transition-delay:.45s}
+.prob-stack.swapped .frame-photo .pen-back-lead{transition-delay:.55s}
+.prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(1){transition-delay:.7s}
+.prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(2){transition-delay:.8s}
+.prob-stack.swapped .frame-photo{transform:scale(1.02)}
+@media (prefers-reduced-motion:reduce){.frame-photo .pen-back-label,.frame-photo .pen-back-lead,.frame-photo .pen-back-stats>div,.fp-shade{transition:opacity .2s!important;transform:none!important;filter:none!important}}
 
 /* reveal */
 .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
@@ -551,7 +567,9 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
       </div>
       <div class="prob-stack" role="button" tabindex="0" aria-label="Reveal the image behind for more on the problem"><div class="stack-inner">
         <div class="stack-back" style="background-image:url(assets/img/problem-back.jpg)">
-          <div class="sb-content">
+        </div>
+        <div class="stack-front pen-card" style="background-image:url(assets/img/pen-frame.jpg)">
+          <div class="frame-photo" style="background-image:url(assets/img/pen-frame.jpg)"><div class="fp-shade"></div>          <div class="sb-content">
             <div>
               <span class="pen-back-label">Anonymous by default</span>
               <p class="pen-back-lead">Guests connect, enjoy their visit, and walk out without a trace: no name, no number, no way to reach them.</p>
@@ -561,9 +579,7 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
               <div><b>0</b><span>you can reach today</span></div>
             </div>
           </div>
-        </div>
-        <div class="stack-front pen-card" style="background-image:url(assets/img/pen-frame.jpg)">
-          <div class="frame-photo" style="background-image:url(assets/img/pen-frame.jpg)" aria-hidden="true"></div>
+          </div>
           <div class="pen-inner" style="background-image:url(assets/img/pen-card.jpg)">
             <p class="pen-quote">Your regulars are already<br>looking for a reason<br>to come back.</p>
             <div class="pen-foot">
