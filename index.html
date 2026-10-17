@@ -381,10 +381,15 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
 /* card shuffle: the back card swings out and lands on top, the front tucks behind */
 @keyframes toFront{0%{transform:translate(16px,16px) scale(.95);z-index:1}45%{transform:translate(64px,4px) rotate(4deg) scale(.97);z-index:1}46%{z-index:3}100%{transform:none;z-index:3}}
 @keyframes toBack{0%{transform:none;z-index:2}45%{transform:translate(-48px,-6px) rotate(-4deg) scale(.97);z-index:2}46%{z-index:1}100%{transform:translate(16px,16px) scale(.95);z-index:1}}
-.prob-stack.swapped .stack-back,.prob-stack.unswap .stack-front{animation:toFront .9s var(--ease-out) forwards}
-.prob-stack.swapped .stack-front,.prob-stack.unswap .stack-back{animation:toBack .9s var(--ease-out) forwards}
-.prob-stack.swapped .stack-back{filter:none}
-.prob-stack.swapped .stack-front{filter:brightness(.8)}
+/* the overhead café photo around the dark card comes to the front; the card swings behind it */
+.stack-front{overflow:visible}
+.frame-photo{position:absolute;inset:0;z-index:1;border-radius:var(--r);background:center/cover no-repeat;transform:scale(1);transition:transform 1s var(--ease-out),box-shadow .8s var(--ease)}
+.pen-inner{z-index:2;border-radius:var(--r) 0 var(--r) 0}
+@keyframes innerBehind{0%{transform:none;z-index:2}45%{transform:translate(64px,26px) rotate(4deg);z-index:2}46%{z-index:0}100%{transform:none;z-index:0}}
+@keyframes innerFront{0%{transform:none;z-index:0}45%{transform:translate(64px,26px) rotate(4deg);z-index:0}46%{z-index:2}100%{transform:none;z-index:2}}
+.prob-stack.swapped .pen-inner{animation:innerBehind .9s var(--ease-out) forwards}
+.prob-stack.unswap .pen-inner{animation:innerFront .9s var(--ease-out) forwards}
+.prob-stack.swapped .frame-photo{transform:scale(1.02);box-shadow:0 24px 50px -24px rgba(37,29,24,.45)}
 @media (prefers-reduced-motion:reduce){.prob-stack .stack-back,.prob-stack .stack-front{animation-duration:.01s!important}}
 .stack-back{z-index:1;transform:translate(16px,16px) scale(.95);filter:brightness(.8)}
 .stack-front{z-index:2}
@@ -558,6 +563,7 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
           </div>
         </div>
         <div class="stack-front pen-card" style="background-image:url(assets/img/pen-frame.jpg)">
+          <div class="frame-photo" style="background-image:url(assets/img/pen-frame.jpg)" aria-hidden="true"></div>
           <div class="pen-inner" style="background-image:url(assets/img/pen-card.jpg)">
             <p class="pen-quote">Your regulars are already<br>looking for a reason<br>to come back.</p>
             <div class="pen-foot">
