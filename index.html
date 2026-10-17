@@ -374,22 +374,19 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
 .reveal{transition:opacity .8s var(--ease),transform .8s var(--ease)}
 
 /* problem card: smooth reveal + tilt */
-.prob-stack{perspective:1200px;-webkit-tap-highlight-color:transparent}
-.prob-stack .stack-inner{position:absolute;inset:0;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .6s var(--ease-out)}
-.prob-stack.tilting .stack-inner{transition:transform .12s linear}
-.stack-front,.stack-back{transition:filter .8s var(--ease-out);will-change:transform}
+.prob-stack{-webkit-tap-highlight-color:transparent}
+.prob-stack .stack-inner{position:absolute;inset:0}
+
 /* card shuffle: the back card swings out and lands on top, the front tucks behind */
 /* the overhead café photo around the dark card comes to the front; the card swings behind it */
 .stack-front{overflow:visible}
-.frame-photo{position:absolute;inset:0;z-index:3;border-radius:var(--r);background:center/cover no-repeat;clip-path:circle(0px at var(--cx,50%) var(--cy,50%));transition:clip-path .55s cubic-bezier(.4,0,.2,1);will-change:clip-path}
-.prob-stack.swapped .frame-photo{clip-path:circle(150% at var(--cx,50%) var(--cy,50%));transition:clip-path .65s cubic-bezier(.22,1,.36,1)}
+.frame-photo{position:absolute;inset:0;z-index:3;border-radius:var(--r);overflow:hidden;pointer-events:none}
+.fp-lens{position:absolute;left:calc(var(--cx,50%) - var(--R,400px));top:calc(var(--cy,50%) - var(--R,400px));width:calc(var(--R,400px) * 2);height:calc(var(--R,400px) * 2);clip-path:circle(50% at 50% 50%);transform:scale(0);will-change:transform}
+.fp-img{position:absolute;left:calc(var(--R,400px) - var(--cx,50%));top:calc(var(--R,400px) - var(--cy,50%));width:var(--cw,100%);height:var(--ch,100%);background:center/cover no-repeat;transform-origin:var(--cx,50%) var(--cy,50%);will-change:transform}
 .pen-inner{z-index:2;border-radius:var(--r) 0 var(--r) 0}
 @media (prefers-reduced-motion:reduce){.prob-stack .stack-back,.prob-stack .stack-front{animation-duration:.01s!important}}
-.stack-back{z-index:1;transform:translate(16px,16px) scale(.95);filter:brightness(.8)}
+.stack-back{z-index:1;transform:translate(16px,16px) scale(.95)}
 .stack-front{z-index:2}
-.stack-glare{position:absolute;inset:0;border-radius:var(--r);pointer-events:none;z-index:3;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.16),transparent 55%);opacity:0;transition:opacity .4s var(--ease)}
-.prob-stack.tilting .stack-glare{opacity:1}
-.pen-back-label{color:rgba(250,246,239,.62)}
 .pen-back-stats b{color:var(--oat)}
 .pen-back-stats span{color:rgba(250,246,239,.72)}
 
@@ -448,21 +445,20 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
 
 
 /* text on the frame photo: the photo is bright, so a tint fades in first, then the copy */
-.frame-photo{overflow:hidden}
-.fp-shade{position:absolute;inset:0;background:linear-gradient(170deg,rgba(22,14,8,.82) 0%,rgba(22,14,8,.55) 42%,rgba(22,14,8,.62) 62%,rgba(22,14,8,.9) 100%);opacity:0;transition:opacity .25s var(--ease)}
-.frame-photo .sb-content{position:absolute;inset:0;z-index:2;padding:34px;display:flex;flex-direction:column;justify-content:space-between;color:var(--oat);text-shadow:0 1px 14px rgba(22,14,8,.35)}
+.fp-shade{position:absolute;inset:0;will-change:opacity;background:linear-gradient(170deg,rgba(22,14,8,.82) 0%,rgba(22,14,8,.55) 42%,rgba(22,14,8,.62) 62%,rgba(22,14,8,.9) 100%);opacity:0;transition:opacity .35s var(--ease)}
+.frame-photo .sb-content{position:absolute;inset:0;z-index:2;will-change:opacity;padding:34px;display:flex;flex-direction:column;justify-content:space-between;color:var(--oat)}
 .frame-photo .pen-back-label{color:rgba(250,246,239,.75)}
 .frame-photo .pen-back-lead{color:#fff}
 .frame-photo .pen-back-stats b{color:#fff}
 .frame-photo .pen-back-stats span{color:rgba(250,246,239,.8)}
-.frame-photo .pen-back-label,.frame-photo .pen-back-lead,.frame-photo .pen-back-stats>div{opacity:0;transform:translateY(8px);transition:opacity .2s var(--ease),transform .2s var(--ease)}
+.frame-photo .pen-back-label,.frame-photo .pen-back-lead,.frame-photo .pen-back-stats>div{opacity:0;will-change:transform,opacity;transform:translate3d(0,10px,0);transition:opacity .25s var(--ease),transform .3s var(--ease)}
 .frame-photo .sb-content>div:first-child{opacity:1;transform:none;filter:none}
-.prob-stack.swapped .fp-shade{opacity:1;transition:opacity .6s var(--ease) .25s}
-.prob-stack.swapped .frame-photo .pen-back-label,.prob-stack.swapped .frame-photo .pen-back-lead,.prob-stack.swapped .frame-photo .pen-back-stats>div{opacity:1;transform:none;transition:opacity .45s var(--ease),transform .55s cubic-bezier(.22,1,.36,1)}
-.prob-stack.swapped .frame-photo .pen-back-label{transition-delay:.4s}
-.prob-stack.swapped .frame-photo .pen-back-lead{transition-delay:.46s}
-.prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(1){transition-delay:.54s}
-.prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(2){transition-delay:.6s}
+.prob-stack.swapped .fp-shade{opacity:1;transition:opacity .8s cubic-bezier(.45,0,.25,1) .18s}
+.prob-stack.swapped .frame-photo .pen-back-label,.prob-stack.swapped .frame-photo .pen-back-lead,.prob-stack.swapped .frame-photo .pen-back-stats>div{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.33,1,.68,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.prob-stack.swapped .frame-photo .pen-back-label{transition-delay:.32s}
+.prob-stack.swapped .frame-photo .pen-back-lead{transition-delay:.4s}
+.prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(1){transition-delay:.5s}
+.prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(2){transition-delay:.56s}
 @media (prefers-reduced-motion:reduce){.frame-photo{transition:none!important}.frame-photo .pen-back-label,.frame-photo .pen-back-lead,.frame-photo .pen-back-stats>div,.fp-shade{transition:opacity .2s!important;transform:none!important;filter:none!important}}
 
 /* reveal */
@@ -562,7 +558,7 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
         <div class="stack-back" style="background-image:url(assets/img/problem-back.jpg)">
         </div>
         <div class="stack-front pen-card" style="background-image:url(assets/img/pen-frame.jpg)">
-          <div class="frame-photo" style="background-image:url(assets/img/pen-frame.jpg)"><div class="fp-shade"></div>          <div class="sb-content">
+          <div class="frame-photo"><div class="fp-lens"><div class="fp-img" style="background-image:url(assets/img/pen-frame.jpg)"></div></div><div class="fp-shade"></div>          <div class="sb-content">
             <div>
               <span class="pen-back-label">Anonymous by default</span>
               <p class="pen-back-lead">Guests connect, enjoy their visit, and walk out without a trace: no name, no number, no way to reach them.</p>
@@ -585,7 +581,7 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
               </svg>
             </div>
           </div>
-        </div><div class="stack-glare"></div></div>
+        </div></div>
       </div>
     </div>
   </div>
@@ -884,24 +880,32 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
   // problem card: tap to toggle, pointer tilt, stat count-up
   var calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('.prob-stack').forEach(function(f){
-    var inner=f.querySelector('.stack-inner');
     var counted=false;
     var count=function(){ if(counted||calm) return; counted=true;
       f.querySelectorAll('[data-to]').forEach(function(b){ var to=+b.dataset.to, pre=b.dataset.pre||'', t0=performance.now();
         (function tick(now){ var k=Math.min(1,(now-t0)/800), e=1-Math.pow(1-k,4); b.textContent=pre+Math.round(to*e).toLocaleString('en-US'); if(k<1) requestAnimationFrame(tick); })(t0); }); };
-    var set=function(on){ if(on===f.classList.contains('swapped')) return; f.classList.toggle('swapped',on); f.classList.toggle('unswap',!on); if(on) count(); };
+    // circular reveal on the compositor: the lens scales up while the photo inside scales down by the same amount
+    var lens=f.querySelector('.fp-lens'), img=f.querySelector('.fp-img'), anims=null;
+    var N=32, ease=function(t){ return 1-Math.pow(1-t,4); };
+    var kf=function(inv){ var a=[]; for(var k=0;k<=N;k++){ var v=Math.max(.002,ease(k/N)); a.push({transform:'scale('+(inv?1/v:v)+')'}); } return a; };
+    var reveal=function(on){
+      if(calm){ lens.style.transform=on?'scale(1)':'scale(0)'; return; }
+      if(!anims || (on && anims[0].playState==='finished' && anims[0].playbackRate<0)){
+        if(!on) return;
+        if(anims) anims.forEach(function(a){ a.cancel(); });
+        var o={duration:650,easing:'linear',fill:'both'};
+        anims=[lens.animate(kf(false),o), img.animate(kf(true),o)];
+      }
+      anims.forEach(function(a){ a.updatePlaybackRate(on?1:-1.6); a.play(); });
+    };
+    var set=function(on){ if(on===f.classList.contains('swapped')) return; f.classList.toggle('swapped',on); f.classList.toggle('unswap',!on); reveal(on); if(on) count(); };
     var fine=matchMedia('(hover: hover)').matches;
-    var origin=function(e){ var b=f.getBoundingClientRect(); f.style.setProperty('--cx',((e.clientX-b.left)/b.width*100).toFixed(1)+'%'); f.style.setProperty('--cy',((e.clientY-b.top)/b.height*100).toFixed(1)+'%'); };
-    f.addEventListener('pointerenter',origin); f.addEventListener('pointerdown',origin);
+    var origin=function(e){ var b=f.getBoundingClientRect(), x=Math.max(0,Math.min(b.width,e.clientX-b.left)), y=Math.max(0,Math.min(b.height,e.clientY-b.top)); var R=Math.hypot(Math.max(x,b.width-x),Math.max(y,b.height-y))+4; f.style.setProperty('--cx',x.toFixed(1)+'px'); f.style.setProperty('--cy',y.toFixed(1)+'px'); f.style.setProperty('--R',R.toFixed(1)+'px'); f.style.setProperty('--cw',b.width+'px'); f.style.setProperty('--ch',b.height+'px'); };
+    f.addEventListener('pointerenter',function(e){ if(!f.classList.contains('swapped') && (!anims || anims[0].playState==='finished')){ origin(e); if(anims){ anims.forEach(function(a){a.cancel()}); anims=null; } } }); f.addEventListener('pointerdown',origin);
     if(fine){ f.addEventListener('mouseenter',function(){ set(true); }); f.addEventListener('mouseleave',function(){ set(false); }); }
     f.addEventListener('focus',function(){ set(true); }); f.addEventListener('blur',function(){ set(false); });
     f.addEventListener('click',function(){ if(!fine) set(!f.classList.contains('swapped')); });
     f.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); set(!f.classList.contains('swapped')); } });
-    if(calm) return;
-    f.addEventListener('pointermove',function(e){ if(e.pointerType!=='mouse') return; var r=f.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
-      f.classList.add('tilting'); inner.style.setProperty('--ry',((x-.5)*10).toFixed(2)+'deg'); inner.style.setProperty('--rx',((.5-y)*8).toFixed(2)+'deg');
-      f.style.setProperty('--gx',(x*100)+'%'); f.style.setProperty('--gy',(y*100)+'%'); });
-    f.addEventListener('pointerleave',function(){ f.classList.remove('tilting'); inner.style.setProperty('--rx','0deg'); inner.style.setProperty('--ry','0deg'); });
   });
 })();
 (function(){
