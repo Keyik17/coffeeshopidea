@@ -461,6 +461,21 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
 .prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(2){transition-delay:.5s}
 @media (prefers-reduced-motion:reduce){.frame-photo{transition:none!important}.frame-photo .pen-back-label,.frame-photo .pen-back-lead,.frame-photo .pen-back-stats>div,.fp-shade{transition:opacity .2s!important;transform:none!important;filter:none!important}}
 
+
+/* ===== type scale (single source of truth) =====
+   display: hero, price, footer mark only
+   h2 44 · list names 24 · card titles 20 · body 16 · card text 15 · captions 14 · labels 11-12 */
+:root{--t-list:1.5rem;--t-title:1.25rem;--t-body:16px;--t-card:15px;--t-cap:14px}
+.who-name,.fs-head .name,.srow .name{font-family:"Satoshi",sans-serif;font-size:var(--t-list);font-weight:700;letter-spacing:-.018em;line-height:1.2}
+.fcard h3,.stp h3,.band-card h3,.slide-text h3,.faq-list summary,.send-list .t,.cta-card h3{font-family:"Satoshi",sans-serif;font-size:var(--t-title);font-weight:700;letter-spacing:-.012em;line-height:1.25}
+.prob-grid .body,.prob-text p,.who-head p,.cta-copy p,.fs-desc p,.price-sub,.price-list li,.pricing li{font-size:var(--t-body);line-height:1.6}
+.stp p,.fcard p,.fcard .k,.band-card p,.who-desc,.faq-list .ans,.hero-foot p{font-size:var(--t-card);line-height:1.6}
+.send-list small,.srow .loc,.srow .yr,.fs-head .meta-cols span,.tile .l,.donut-legend,.cta-points,.foot-cols a,.foot-cols p,.pen-back-stats span{font-size:var(--t-cap)}
+.band-nav button{font-family:"Inter",system-ui,sans-serif}
+.send-list .t small{font-size:var(--t-cap);display:block;font-family:"Inter",system-ui,sans-serif;font-weight:400;letter-spacing:0;color:var(--warm);margin-top:4px}
+.fcard.dark p,.fcard p{font-size:var(--t-card)!important}
+.who-row{padding:22px 4px}
+
 /* reveal */
 .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
 .reveal.in{opacity:1;transform:none}
