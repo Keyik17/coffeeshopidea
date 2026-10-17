@@ -445,20 +445,20 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
 
 
 /* text on the frame photo: the photo is bright, so a tint fades in first, then the copy */
-.fp-shade{position:absolute;inset:0;will-change:opacity;background:linear-gradient(170deg,rgba(22,14,8,.82) 0%,rgba(22,14,8,.55) 42%,rgba(22,14,8,.62) 62%,rgba(22,14,8,.9) 100%);opacity:0;transition:opacity .35s var(--ease)}
+.fp-shade{position:absolute;inset:0;will-change:opacity;background:linear-gradient(170deg,rgba(22,14,8,.82) 0%,rgba(22,14,8,.55) 42%,rgba(22,14,8,.62) 62%,rgba(22,14,8,.9) 100%);opacity:0;transition:opacity .45s cubic-bezier(.33,1,.68,1)}
 .frame-photo .sb-content{position:absolute;inset:0;z-index:2;will-change:opacity;padding:34px;display:flex;flex-direction:column;justify-content:space-between;color:var(--oat)}
 .frame-photo .pen-back-label{color:rgba(250,246,239,.75)}
 .frame-photo .pen-back-lead{color:#fff}
 .frame-photo .pen-back-stats b{color:#fff}
 .frame-photo .pen-back-stats span{color:rgba(250,246,239,.8)}
-.frame-photo .pen-back-label,.frame-photo .pen-back-lead,.frame-photo .pen-back-stats>div{opacity:0;will-change:transform,opacity;transform:translate3d(0,10px,0);transition:opacity .25s var(--ease),transform .3s var(--ease)}
+.frame-photo .pen-back-label,.frame-photo .pen-back-lead,.frame-photo .pen-back-stats>div{opacity:0;will-change:transform,opacity;transform:translate3d(0,6px,0);transition:opacity .3s cubic-bezier(.33,1,.68,1),transform .4s cubic-bezier(.33,1,.68,1)}
 .frame-photo .sb-content>div:first-child{opacity:1;transform:none;filter:none}
-.prob-stack.swapped .fp-shade{opacity:1;transition:opacity .8s cubic-bezier(.45,0,.25,1) .18s}
-.prob-stack.swapped .frame-photo .pen-back-label,.prob-stack.swapped .frame-photo .pen-back-lead,.prob-stack.swapped .frame-photo .pen-back-stats>div{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.33,1,.68,1),transform .8s cubic-bezier(.16,1,.3,1)}
-.prob-stack.swapped .frame-photo .pen-back-label{transition-delay:.32s}
-.prob-stack.swapped .frame-photo .pen-back-lead{transition-delay:.4s}
-.prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(1){transition-delay:.5s}
-.prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(2){transition-delay:.56s}
+.prob-stack.swapped .fp-shade{opacity:1;transition:opacity .9s cubic-bezier(.33,1,.68,1) .12s}
+.prob-stack.swapped .frame-photo .pen-back-label,.prob-stack.swapped .frame-photo .pen-back-lead,.prob-stack.swapped .frame-photo .pen-back-stats>div{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.33,1,.68,1),transform 1s cubic-bezier(.16,1,.3,1)}
+.prob-stack.swapped .frame-photo .pen-back-label{transition-delay:.26s}
+.prob-stack.swapped .frame-photo .pen-back-lead{transition-delay:.34s}
+.prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(1){transition-delay:.44s}
+.prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(2){transition-delay:.5s}
 @media (prefers-reduced-motion:reduce){.frame-photo{transition:none!important}.frame-photo .pen-back-label,.frame-photo .pen-back-lead,.frame-photo .pen-back-stats>div,.fp-shade{transition:opacity .2s!important;transform:none!important;filter:none!important}}
 
 /* reveal */
@@ -884,24 +884,25 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
     var count=function(){ if(counted||calm) return; counted=true;
       f.querySelectorAll('[data-to]').forEach(function(b){ var to=+b.dataset.to, pre=b.dataset.pre||'', t0=performance.now();
         (function tick(now){ var k=Math.min(1,(now-t0)/800), e=1-Math.pow(1-k,4); b.textContent=pre+Math.round(to*e).toLocaleString('en-US'); if(k<1) requestAnimationFrame(tick); })(t0); }); };
-    // circular reveal on the compositor: the lens scales up while the photo inside scales down by the same amount
-    var lens=f.querySelector('.fp-lens'), img=f.querySelector('.fp-img'), anims=null;
-    var N=32, ease=function(t){ return 1-Math.pow(1-t,4); };
-    var kf=function(inv){ var a=[]; for(var k=0;k<=N;k++){ var v=Math.max(.002,ease(k/N)); a.push({transform:'scale('+(inv?1/v:v)+')'}); } return a; };
+    // circular reveal on the compositor: the lens scales while the photo inside scales by the inverse,
+    // so the photo stays still and only the circle grows. Every change eases from wherever it is.
+    var lens=f.querySelector('.fp-lens'), img=f.querySelector('.fp-img'), anims=null, from=0, to=0, t0=0, dur=1;
+    var out=function(t){ return 1-Math.pow(1-t,3); };
+    var now=function(){ if(!anims) return to; var k=Math.min(1,(performance.now()-t0)/dur); return from+(to-from)*out(k); };
     var reveal=function(on){
-      if(calm){ lens.style.transform=on?'scale(1)':'scale(0)'; return; }
-      if(!anims || (on && anims[0].playState==='finished' && anims[0].playbackRate<0)){
-        if(!on) return;
-        if(anims) anims.forEach(function(a){ a.cancel(); });
-        var o={duration:650,easing:'linear',fill:'both'};
-        anims=[lens.animate(kf(false),o), img.animate(kf(true),o)];
-      }
-      anims.forEach(function(a){ a.updatePlaybackRate(on?1:-1.6); a.play(); });
+      var target=on?1:0;
+      if(calm){ lens.style.transform='scale('+target+')'; img.style.transform='scale(1)'; to=target; return; }
+      var v=now(); if(anims) anims.forEach(function(a){ a.cancel(); });
+      from=v; to=target; dur=Math.max(260,(on?820:560)*Math.abs(to-from)); t0=performance.now();
+      var N=60, L=[], I=[];
+      for(var k=0;k<=N;k++){ var x=Math.max(.0015,from+(to-from)*out(k/N)); L.push({transform:'scale('+x+')'}); I.push({transform:'scale('+(1/x)+')'}); }
+      var o={duration:dur,easing:'linear',fill:'forwards'};
+      anims=[lens.animate(L,o), img.animate(I,o)];
     };
     var set=function(on){ if(on===f.classList.contains('swapped')) return; f.classList.toggle('swapped',on); f.classList.toggle('unswap',!on); reveal(on); if(on) count(); };
     var fine=matchMedia('(hover: hover)').matches;
     var origin=function(e){ var b=f.getBoundingClientRect(), x=Math.max(0,Math.min(b.width,e.clientX-b.left)), y=Math.max(0,Math.min(b.height,e.clientY-b.top)); var R=Math.hypot(Math.max(x,b.width-x),Math.max(y,b.height-y))+4; f.style.setProperty('--cx',x.toFixed(1)+'px'); f.style.setProperty('--cy',y.toFixed(1)+'px'); f.style.setProperty('--R',R.toFixed(1)+'px'); f.style.setProperty('--cw',b.width+'px'); f.style.setProperty('--ch',b.height+'px'); };
-    f.addEventListener('pointerenter',function(e){ if(!f.classList.contains('swapped') && (!anims || anims[0].playState==='finished')){ origin(e); if(anims){ anims.forEach(function(a){a.cancel()}); anims=null; } } }); f.addEventListener('pointerdown',origin);
+    f.addEventListener('pointerenter',function(e){ if(!f.classList.contains('swapped') && now()<.002){ origin(e); } }); f.addEventListener('pointerdown',origin);
     if(fine){ f.addEventListener('mouseenter',function(){ set(true); }); f.addEventListener('mouseleave',function(){ set(false); }); }
     f.addEventListener('focus',function(){ set(true); }); f.addEventListener('blur',function(){ set(false); });
     f.addEventListener('click',function(){ if(!fine) set(!f.classList.contains('swapped')); });
