@@ -449,7 +449,7 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
 
 /* text on the frame photo: the photo is bright, so a tint fades in first, then the copy */
 .frame-photo{overflow:hidden}
-.fp-shade{position:absolute;inset:0;background:linear-gradient(170deg,rgba(22,14,8,.82) 0%,rgba(22,14,8,.55) 42%,rgba(22,14,8,.62) 62%,rgba(22,14,8,.9) 100%);opacity:1}
+.fp-shade{position:absolute;inset:0;background:linear-gradient(170deg,rgba(22,14,8,.82) 0%,rgba(22,14,8,.55) 42%,rgba(22,14,8,.62) 62%,rgba(22,14,8,.9) 100%);opacity:0;transition:opacity .25s var(--ease)}
 .frame-photo .sb-content{position:absolute;inset:0;z-index:2;padding:34px;display:flex;flex-direction:column;justify-content:space-between;color:var(--oat);text-shadow:0 1px 14px rgba(22,14,8,.35)}
 .frame-photo .pen-back-label{color:rgba(250,246,239,.75)}
 .frame-photo .pen-back-lead{color:#fff}
@@ -457,11 +457,12 @@ section h3,.band-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.012em
 .frame-photo .pen-back-stats span{color:rgba(250,246,239,.8)}
 .frame-photo .pen-back-label,.frame-photo .pen-back-lead,.frame-photo .pen-back-stats>div{opacity:0;transform:translateY(8px);transition:opacity .2s var(--ease),transform .2s var(--ease)}
 .frame-photo .sb-content>div:first-child{opacity:1;transform:none;filter:none}
+.prob-stack.swapped .fp-shade{opacity:1;transition:opacity .6s var(--ease) .25s}
 .prob-stack.swapped .frame-photo .pen-back-label,.prob-stack.swapped .frame-photo .pen-back-lead,.prob-stack.swapped .frame-photo .pen-back-stats>div{opacity:1;transform:none;transition:opacity .45s var(--ease),transform .55s cubic-bezier(.22,1,.36,1)}
-.prob-stack.swapped .frame-photo .pen-back-label{transition-delay:.1s}
-.prob-stack.swapped .frame-photo .pen-back-lead{transition-delay:.15s}
-.prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(1){transition-delay:.22s}
-.prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(2){transition-delay:.27s}
+.prob-stack.swapped .frame-photo .pen-back-label{transition-delay:.4s}
+.prob-stack.swapped .frame-photo .pen-back-lead{transition-delay:.46s}
+.prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(1){transition-delay:.54s}
+.prob-stack.swapped .frame-photo .pen-back-stats>div:nth-child(2){transition-delay:.6s}
 @media (prefers-reduced-motion:reduce){.frame-photo{transition:none!important}.frame-photo .pen-back-label,.frame-photo .pen-back-lead,.frame-photo .pen-back-stats>div,.fp-shade{transition:opacity .2s!important;transform:none!important;filter:none!important}}
 
 /* reveal */
